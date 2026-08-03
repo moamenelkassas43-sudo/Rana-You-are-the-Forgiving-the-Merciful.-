@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصحيح الثابت | موسوعة الأحاديث النبوية الصحيحة</title>
+    
+    <!-- Meta SEO & Open Graph -->
+    <meta name="description" content="موسوعة الصحيح الثابت للأحاديث النبوية الصحيحة مع البحث والنسخ والمشاركة.">
+    <meta name="theme-color" content="#00ffa3">
+    
+    <meta property="og:title" content="موسوعة الصحيح الثابت للأحاديث النبوية">
+    <meta property="og:description" content="تصفح الأحاديث الصحيحة مع البحث والنسخ والمشاركة.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="cover.png">
+
+    <!-- Apple Mobile Web App Meta -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- أيقونة الموقع و Manifest -->
+    <link rel="icon" href="favicon.png">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ملف التصميم -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- شريط علوي -->
+    <header>
+        <div class="logo-area">
+            <div class="logo-icon"></div>
+            <div class="logo-title">الصحيح الثابت</div>
+            <span class="designer-tag">By مؤمن هشام القصاص</span>
+        </div>
+        <div class="header-controls">
+            <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="تبديل الوضع">
+                <span id="themeIcon">☀️</span>
+                <span id="themeText">الوضع النهاري</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي وبطاقة الحديث -->
+    <main class="main-card">
+        <h1 class="visually-hidden">موسوعة الصحيح الثابت للأحاديث النبوية</h1>
+
+        <!-- شريط البحث والانتقال السريع -->
+        <div class="search-jump-bar">
+            <div class="search-wrapper">
+                <input 
+                    type="search" 
+                    id="searchInput" 
+                    placeholder="ابحث في المتن أو الراوي..." 
+                    autocomplete="off" 
+                    spellcheck="false" 
+                    aria-label="البحث في الأحاديث">
+            </div>
+            <div class="jump-wrapper">
+                <input 
+                    type="number" 
+                    id="jumpInput" 
+                    placeholder="رقم الحديث" 
+                    min="1" 
+                    inputmode="numeric" 
+                    aria-label="رقم الحديث">
+                <button id="jumpBtn" class="control-btn" title="انتقال للحديث">انتقال</button>
+                <button class="control-btn" id="homeBtn" title="العودة لأول حديث">🏠 البداية</button>
+            </div>
+        </div>
+
+        <div class="card-header">
+            <div class="hadith-info-title">
+                <span class="hadith-number" id="hadithIndex">حديث #1</span>
+                <span id="hadithCounter" class="hadith-counter-span" style="font-size: 0.8rem; color: var(--text-secondary); margin-right: 8px;"></span>
+            </div>
+            <span class="hadith-badge" id="hadithGrade">-</span>
+        </div>
+
+        <div class="sanad-box" id="hadithSanad">جاري التحميل...</div>
+        <div class="matn-box" id="hadithMatn">جاري التحميل...</div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">الراوي الأعلى:</span>
+                <span class="info-value" id="hadithRawi">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">المحدث / المصدر:</span>
+                <span class="info-value" id="hadithSource">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">الكتاب:</span>
+                <span class="info-value" id="hadithBook">-</span>
+            </div>
+        </div>
+
+        <!-- أزرار التنقل والعمليات مع أوصاف الوصول -->
+        <div class="card-actions">
+            <button id="prevBtn" class="nav-btn" aria-label="الحديث السابق">
+                ➡️ السابق
+            </button>
+            <div class="center-actions">
+                <button id="randomBtn" class="action-btn random-btn" title="عرض حديث عشوائي" aria-label="حديث عشوائي">
+                    🔀 عشوائي
+                </button>
+                <button id="copyBtn" class="action-btn copy-btn" title="نسخ الحديث كاملاً" aria-label="نسخ الحديث">
+                    📋 نسخ
+                </button>
+                <button id="shareBtn" class="action-btn share-btn" title="مشاركة الحديث" aria-label="مشاركة الحديث">
+                    🔗 مشاركة
+                </button>
+            </div>
+            <button id="nextBtn" class="nav-btn" aria-label="الحديث التالي">
+                التالي ⬅️
+            </button>
+        </div>
+    </main>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>تم التصميم والتطوير بواسطة <span class="designer-credits">مؤمن هشام القصاص</span> © 2026</p>
+        <p style="font-size: 0.75rem; margin-top: 5px; opacity: 0.7;">تمت مراجعة الأحاديث وفق المصادر المعتمدة، ويُرجى الرجوع إلى التخريج المرفق مع كل حديث.</p>
+    </footer>
+
+    <!-- ملف التشغيل والمنطق بدون الحاجة لـ defer نظراً لوجوده نهاية الـ body -->
+    <script src="script.js"></script>
+</body>
+</html>
