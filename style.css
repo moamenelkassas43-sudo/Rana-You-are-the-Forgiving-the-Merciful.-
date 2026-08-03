@@ -1,0 +1,522 @@
+/* ==========================================
+   1. المتغيرات العامة وأنظمة الألوان (Themes)
+   ========================================== */
+:root {
+    --radius-sm: 12px;
+    --radius-md: 14px;
+    --radius-lg: 24px;
+    --transition-base: 0.3s ease;
+    --transition-fast: 0.2s ease;
+}
+
+:root[data-theme="dark"] {
+    --bg-color: #070d0b;
+    --grid-color: rgba(255, 255, 255, 0.03);
+    --card-bg: linear-gradient(180deg, #0d1e1a 0%, #08120f 100%);
+    --card-border: #1a3830;
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --accent-green: #00ffa3;
+    --accent-orange: #ff9d00;
+    --accent-cyan: #00d8f6;
+    --glow-left: rgba(255, 157, 0, 0.12);
+    --glow-right: rgba(0, 255, 163, 0.12);
+    --sanad-bg: rgba(0, 0, 0, 0.25);
+    --btn-bg: rgba(255, 255, 255, 0.05);
+    --btn-hover: rgba(255, 255, 255, 0.1);
+    --shadow-main: 0 20px 40px rgba(0, 0, 0, 0.25);
+    --shadow-hover: 0 25px 55px rgba(0, 0, 0, 0.35);
+}
+
+:root[data-theme="light"] {
+    --bg-color: #f4f6f5;
+    --grid-color: rgba(0, 0, 0, 0.04);
+    --card-bg: linear-gradient(180deg, #ffffff 0%, #f8faf9 100%);
+    --card-border: #d1ebd9;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent-green: #059669;
+    --accent-orange: #d97706;
+    --accent-cyan: #0284c7;
+    --glow-left: rgba(217, 119, 6, 0.08);
+    --glow-right: rgba(5, 150, 105, 0.08);
+    --sanad-bg: #f1f5f9;
+    --btn-bg: #e2e8f0;
+    --btn-hover: #cbd5e1;
+    --shadow-main: 0 20px 40px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 25px 55px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================
+   2. الإعدادات الأساسية وتحسين الخطوط
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 35px 35px;
+}
+
+/* إضاءات جمالية في الخلفية */
+body::before, body::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    filter: blur(140px);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+body::before {
+    top: 15%;
+    left: -150px;
+    background: var(--glow-left);
+}
+
+body::after {
+    top: 35%;
+    right: -150px;
+    background: var(--glow-right);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* تخصيص التحديد وشريط التمرير */
+::selection {
+    background: var(--accent-green);
+    color: #000;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-green);
+    border-radius: 20px;
+}
+
+/* كلاس الإخفاء البصري للوصول ومحركات البحث */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ==========================================
+   3. التحولات والدعم الحركي المخصص للأداء
+   ========================================== */
+.main-card,
+.theme-toggle-btn,
+.nav-btn,
+.action-btn,
+.control-btn,
+input {
+    transition: 
+        background-color var(--transition-base),
+        color var(--transition-base),
+        border-color var(--transition-base),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+/* احترام تفضيلات المستخدم لتقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* تحسين التركيز عبر لوحة المفاتيح (Accessibility) */
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 3px;
+}
+
+/* ==========================================
+   4. الشريط العلوي (Header)
+   ========================================== */
+header {
+    width: 100%;
+    max-width: 850px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(135deg, var(--accent-orange), var(--accent-green));
+    border-radius: 4px;
+}
+
+.logo-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.designer-tag {
+    font-size: 0.75rem;
+    background: var(--btn-bg);
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: var(--accent-cyan);
+    border: 1px solid var(--card-border);
+}
+
+.theme-toggle-btn {
+    background: var(--btn-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--card-border);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+}
+
+/* ==========================================
+   5. البطاقة الرئيسية وتفاعلاتها (Main Card)
+   ========================================== */
+.main-card {
+    width: 100%;
+    max-width: 850px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    box-shadow: var(--shadow-main);
+    position: relative;
+}
+
+.main-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* شريط البحث والانتقال */
+.search-jump-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.search-wrapper {
+    flex: 1;
+    min-width: 220px;
+}
+
+.search-wrapper input, 
+.jump-wrapper input {
+    width: 100%;
+    padding: 11px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--card-border);
+    background: var(--sanad-bg);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.search-wrapper input::placeholder,
+.jump-wrapper input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+.search-wrapper input:focus, 
+.jump-wrapper input:focus {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 2px rgba(0, 255, 163, 0.15);
+}
+
+.jump-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.jump-wrapper input {
+    width: 95px;
+    text-align: center;
+}
+
+.control-btn {
+    background: var(--btn-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--card-border);
+    padding: 11px 14px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.control-btn:hover {
+    background: var(--btn-hover);
+    border-color: var(--accent-green);
+    transform: translateY(-2px);
+}
+
+.control-btn:active {
+    transform: scale(0.97);
+}
+
+/* رأس البطاقة والعداد */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+}
+
+.hadith-info-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hadith-number {
+    color: var(--accent-orange);
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.hadith-counter-span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.hadith-badge {
+    background: rgba(0, 255, 163, 0.08);
+    color: var(--accent-green);
+    border: 1px solid var(--accent-green);
+    padding: 5px 14px;
+    border-radius: var(--radius-md);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* السند والمتن */
+.sanad-box {
+    background: var(--sanad-bg);
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+    border-right: 3px solid var(--accent-cyan);
+    line-height: 1.7;
+}
+
+.matn-box {
+    font-family: 'Amiri', serif;
+    font-size: 1.6rem;
+    line-height: 2.2;
+    color: var(--text-primary);
+    text-align: justify;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* شبكة المعلومات الإضافية */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    background: var(--sanad-bg);
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    margin-bottom: 25px;
+    border: 1px solid var(--card-border);
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.info-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.info-value {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--accent-green);
+}
+
+/* ==========================================
+   6. أزرار التحكم والتنقل (Actions)
+   ========================================== */
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.center-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-btn, .action-btn {
+    background: var(--btn-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--card-border);
+    padding: 11px 18px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-btn:hover, .action-btn:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+}
+
+.nav-btn:active, .action-btn:active {
+    transform: scale(0.97);
+}
+
+.copy-btn {
+    background: linear-gradient(135deg, var(--accent-orange), #e68a00);
+    color: #000;
+    border: none;
+    font-weight: 700;
+}
+
+.copy-btn:hover {
+    opacity: 0.92;
+}
+
+/* ==========================================
+   7. تذييل الصفحة (Footer)
+   ========================================== */
+footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.designer-credits {
+    color: var(--accent-green);
+    font-weight: 700;
+}
+
+/* ==========================================
+   8. التصميم المتجاوب للهواتف (Media Queries)
+   ========================================== */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .main-card {
+        padding: 18px;
+    }
+
+    .matn-box {
+        font-size: 1.3rem;
+        line-height: 2;
+    }
+
+    .search-jump-bar {
+        flex-direction: column;
+    }
+
+    .jump-wrapper {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .jump-wrapper input {
+        flex: 1;
+    }
+
+    .card-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-btn, .center-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .center-actions {
+        flex-direction: row;
+        width: 100%;
+    }
+}
